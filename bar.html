@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bar Chart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- External CSS -->
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+
+        <!-- External JS -->
+        <script src="assets/jquery-1.12.0.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- amCharts Main Library -->
+        <script src="amcharts/amcharts.min.js"></script>
+        <!-- Serial Chart -->
+        <script src="amcharts/serial.js"></script>
+        <!-- Chart Themes -->
+        <script src="amcharts/themes/light.js"></script>
+        <!--<script src="amcharts/themes/dark.js"></script>-->
+        <!--<script src="amcharts/themes/chalk.js"></script>-->
+        <!--<script src="amcharts/themes/patterns.js"></script>-->
+        <!--<script src="amcharts/themes/none.js"></script>-->
+
+        <!-- Export Chart -->
+        <link rel="stylesheet" href="amcharts/plugins/export/export.css">
+        <script src="amcharts/plugins/export/export.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="text-center">
+                <h1>Serial Chart (Bar / Column Chart)</h1>
+            </div>
+            <div class="row">
+                <div id="serialChart" style="width: 100%; height: 500px"></div>
+            </div>
+        </div>
+        <script>
+            var chart = AmCharts.makeChart("serialChart", {
+                //type: Jenis Chart
+                "type": "serial",
+                "theme": "light",
+                "marginRight": 70,
+                "hideCredits": true,
+                //dataProvider: Sumber Data untuk Chart
+                "dataProvider": [
+                    {
+                        "category": "Kerosakan Jalan",
+                        "total": 3025
+                    }, {
+                        "category": "Tumbuhan/Rumput",
+                        "total": 245
+                    }, {
+                        "category": "Lampu",
+                        "total": 764
+                    }, {
+                        "category": "Papan Tanda",
+                        "total": 875
+                    }, {
+                        "category": "Sampah",
+                        "total": 675
+                    }, {
+                        "category": "Parkir",
+                        "total": 256
+                    }, {
+                        "category": "Tandas",
+                        "total": 506
+                    }, {
+                        "category": "Longkang/Parit",
+                        "total": 8097
+                    }
+                ],
+                //ValueAxes: Paksi Y / Paksi menujukan nilai data
+                "valueAxes": [{
+                        "axisAlpha": 0,
+                        "position": "left",
+                        "title": "Bilangan Aduan"
+                    }],
+                //Field untuk paksi X / paksi kategori data
+                "categoryField": "category",
+                //categoryAxis: paksi untuk kategori data / kumpulan data
+                "categoryAxis": {
+                    "gridPosition": "start",
+//                    "labelRotation": 45
+                },
+                //Graphs: Setting untuk chart
+                "graphs": [{
+                        "balloonText": "<b>[[category]]: [[value]]</b>",
+                        "fillColorsField": "color",
+                        "fillAlphas": 0.9,
+                        "lineAlpha": 0.2,
+                        "type": "column",
+                        //Field untuk value chart
+                        "valueField": "total"
+                    }],
+                //Animated chart
+                "startDuration": 1,
+                //Chart Hover
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+                //Setting untuk export chart
+                "export": {
+                    "enabled": true,
+                    "position": "bottom-right"
+                }
+            });
+        </script>
+    </body>
+</html>

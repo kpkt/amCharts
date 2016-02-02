@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pie Chart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- External CSS -->
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+
+        <!-- External JS -->
+        <script src="assets/jquery-1.12.0.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- amCharts Main Library -->
+        <script src="amcharts/amcharts.min.js"></script>
+        <!-- Serial Chart -->
+        <script src="amcharts/pie.js"></script>
+        <!-- Chart Themes -->
+        <script src="amcharts/themes/light.js"></script>
+        <!--<script src="amcharts/themes/dark.js"></script>-->
+        <!--<script src="amcharts/themes/chalk.js"></script>-->
+        <!--<script src="amcharts/themes/patterns.js"></script>-->
+        <!--<script src="amcharts/themes/none.js"></script>-->
+
+        <!-- Export Chart -->
+        <link rel="stylesheet" href="amcharts/plugins/export/export.css">
+        <script src="amcharts/plugins/export/export.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="text-center">
+                <h1>Pie Chart</h1>
+            </div>
+            <div class="row">
+                <div id="serialChart" style="width: 100%; height: 500px"></div>
+            </div>
+        </div>
+        <script>
+            var chart = AmCharts.makeChart("serialChart", {
+                "type": "pie",
+                "startDuration": 0,
+                "theme": "light",
+                "addClassNames": true,
+                "legend": {
+                    "position": "right",
+                    "marginRight": 100,
+                    "autoMargins": false
+                },
+                "innerRadius": "30%",
+                "defs": {
+                    "filter": [{
+                            "id": "shadow",
+                            "width": "200%",
+                            "height": "200%",
+                            "feOffset": {
+                                "result": "offOut",
+                                "in": "SourceAlpha",
+                                "dx": 0,
+                                "dy": 0
+                            },
+                            "feGaussianBlur": {
+                                "result": "blurOut",
+                                "in": "offOut",
+                                "stdDeviation": 5
+                            },
+                            "feBlend": {
+                                "in": "SourceGraphic",
+                                "in2": "blurOut",
+                                "mode": "normal"
+                            }
+                        }]
+                },
+                "dataProvider": [
+                    {
+                        "category": "Kerosakan Jalan",
+                        "total": 3025
+                    }, {
+                        "category": "Tumbuhan/Rumput",
+                        "total": 245
+                    }, {
+                        "category": "Lampu",
+                        "total": 764
+                    }, {
+                        "category": "Papan Tanda",
+                        "total": 875
+                    }, {
+                        "category": "Sampah",
+                        "total": 675
+                    }, {
+                        "category": "Parkir",
+                        "total": 256
+                    }, {
+                        "category": "Tandas",
+                        "total": 506
+                    }, {
+                        "category": "Longkang/Parit",
+                        "total": 8097
+                    }
+                ],
+                "titleField": "category",
+                "valueField": "total",
+                "export": {
+                    "enabled": true,
+                    "position": "bottom-right"
+                }
+            });
+
+            chart.addListener("init", handleInit);
+
+            chart.addListener("rollOverSlice", function (e) {
+                handleRollOver(e);
+            });
+
+            function handleInit() {
+                chart.legend.addListener("rollOverItem", handleRollOver);
+            }
+
+            function handleRollOver(e) {
+                var wedge = e.dataItem.wedge.node;
+                wedge.parentNode.appendChild(wedge);
+            }
+        </script>
+    </body>
+</html>

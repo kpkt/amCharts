@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Combo Chart</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- External CSS -->
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+
+        <!-- External JS -->
+        <script src="assets/jquery-1.12.0.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- amCharts Main Library -->
+        <script src="amcharts/amcharts.min.js"></script>
+        <!-- Serial Chart -->
+        <script src="amcharts/serial.js"></script>
+        <!-- Chart Themes -->
+        <script src="amcharts/themes/light.js"></script>
+        <!--<script src="amcharts/themes/dark.js"></script>-->
+        <!--<script src="amcharts/themes/chalk.js"></script>-->
+        <!--<script src="amcharts/themes/patterns.js"></script>-->
+        <!--<script src="amcharts/themes/none.js"></script>-->
+
+        <!-- Export Chart -->
+        <link rel="stylesheet" href="amcharts/plugins/export/export.css">
+        <script src="amcharts/plugins/export/export.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="text-center">
+                <h1>Combo Chart <small>Bar Chart + Line Chart</small></h1>
+            </div>
+            <div class="row">
+                <div id="serialChart" style="width: 100%; height: 500px"></div>
+            </div>
+        </div>
+        <script>
+            var chart = AmCharts.makeChart("serialChart", {
+                "type": "serial",
+                "addClassNames": true,
+                "theme": "light",
+                "autoMargins": false,
+                "marginLeft": 30,
+                "marginRight": 8,
+                "marginTop": 10,
+                "marginBottom": 26,
+                "balloon": {
+                    "adjustBorderColor": false,
+                    "horizontalPadding": 10,
+                    "verticalPadding": 8,
+                    "color": "#ffffff"
+                },
+                "dataProvider": [
+                    {
+                        "month": '10/2015',
+                        "complaints": 200,
+                        "users": 10
+                    }, {
+                        "month": '11/2015',
+                        "complaints": 104,
+                        "users": 7
+                    }, {
+                        "month": '12/2015',
+                        "complaints": 302,
+                        "users": 54
+                    }, {
+                        "month": '01/2016',
+                        "complaints": 202,
+                        "users": 42
+                    }, {
+                        "month": '02/2016',
+                        "complaints": 17,
+                        "users": 14,
+                        "dashLengthColumn": 5,
+                        "alpha": 0.2
+                    }],
+                "valueAxes": [{
+                        "axisAlpha": 0,
+                        "position": "left"
+                    }],
+                "startDuration": 1,
+                "graphs": [
+                    {
+                        "alphaField": "alpha",
+                        "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+                        "fillAlphas": 1,
+                        "title": "Total Complaint",
+                        "type": "column",
+                        "valueField": "complaints",
+                        "dashLengthField": "dashLengthColumn"
+                    }, {
+                        "id": "graph2",
+                        "balloonText": "<span style='font-size:12px;'>[[title]] in [[category]]:<br><span style='font-size:20px;'>[[value]]</span> [[additional]]</span>",
+                        "bullet": "round",
+                        "lineThickness": 3,
+                        "bulletSize": 7,
+                        "bulletBorderAlpha": 1,
+                        "bulletColor": "#FFFFFF",
+                        "useLineColorForBulletBorder": true,
+                        "bulletBorderThickness": 3,
+                        "fillAlphas": 0,
+                        "lineAlpha": 1,
+                        "title": "Registered Users",
+                        "valueField": "users"
+                    }],
+                "categoryField": "month",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "tickLength": 0
+                },
+                "export": {
+                    "enabled": true,
+                    "position": "bottom-right"
+                }
+            });
+        </script>
+    </body>
+</html>
